@@ -1,0 +1,26 @@
+{
+  "name": "talltap/placeholder",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Marvin Osswald",
+      "email": "mail@marvinosswald.de"
+    }
+  ],
+  "require": {
+    "talltap/support": "self.version"
+  },
+  "autoload": {
+    "psr-4": {
+      "Talltap\\Placeholder\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Talltap\\Placeholder\\PlaceholderServiceProvider"
+      ]
+    }
+  }
+}

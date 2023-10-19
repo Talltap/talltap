@@ -1,0 +1,32 @@
+{
+  "name": "talltap",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev:js": "node tools/build-assets.js --dev",
+    "dev:css-placeholder": "npx tailwindcss -i ./packages/placeholder/resources/css/index.css -o ./packages/placeholder/dist/index.css --watch",
+    "dev": "npm-run-all --parallel dev:*",
+    "build:js": "node tools/build-assets.js",
+    "build": "npm-run-all build:*",
+    "prettier": "npx prettier --write ."
+  },
+  "devDependencies": {
+    "esbuild": "^0.19.4",
+    "npm-run-all": "4.1.5",
+    "@tiptap/core": "2.1.10",
+    "@tiptap/extension-bubble-menu": "2.1.10",
+    "@tiptap/extension-character-count": "2.1.10",
+    "@tiptap/extension-document": "2.1.10",
+    "@tiptap/extension-dropcursor": "2.1.10",
+    "@tiptap/extension-image": "2.1.10",
+    "@tiptap/extension-link": "2.1.10",
+    "@tiptap/extension-placeholder": "2.1.10",
+    "@tiptap/extension-text-align": "2.1.10",
+    "@tiptap/extension-typography": "2.1.10",
+    "@tiptap/extension-underline": "2.1.10",
+    "@tiptap/extension-youtube": "2.1.10",
+    "@tiptap/starter-kit": "2.1.10",
+    "tailwindcss": "3.3.3"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,27 @@
+{
+    "name": "talltap/image",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marvin Osswald",
+            "email": "mail@marvinosswald.de"
+        }
+    ],
+    "require": {
+        "talltap/support": "self.version",
+        "andreiio/blade-remix-icon": "2.5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Talltap\\Image\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Talltap\\Image\\ImageServiceProvider"
+            ]
+        }
+    }
+}

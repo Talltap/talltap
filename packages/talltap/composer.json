@@ -1,0 +1,23 @@
+{
+    "name": "talltap/talltap",
+    "require": {
+        "php": "^8.1",
+        "talltap/support": "self.version",
+        "talltap/starter-kit": "self.version"
+    },
+    "autoload": {
+        "psr-4": {
+            "Talltap\\Talltap\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Talltap\\Talltap\\TalltapServiceProvider"
+            ],
+            "aliases": {
+                "Talltap": "Talltap\\Talltap\\Facades\\Talltap"
+            }
+        }
+    }
+}

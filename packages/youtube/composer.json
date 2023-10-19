@@ -1,0 +1,27 @@
+{
+  "name": "talltap/youtube",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Marvin Osswald",
+      "email": "mail@marvinosswald.de"
+    }
+  ],
+  "require": {
+    "talltap/support": "self.version",
+    "andreiio/blade-remix-icon": "2.5.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Talltap\\Youtube\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Talltap\\Youtube\\YoutubeServiceProvider"
+      ]
+    }
+  }
+}
