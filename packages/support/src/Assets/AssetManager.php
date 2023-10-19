@@ -28,11 +28,6 @@ class AssetManager
     protected array $styles = [];
 
     /**
-     * @var array<string, Theme>
-     */
-    protected array $themes = [];
-
-    /**
      * @param  array<Asset>  $assets
      */
     public function register(array $assets, string $package = 'app'): void
@@ -198,23 +193,9 @@ class AssetManager
      */
     public function renderStyles(?array $packages = null): string
     {
-
         return view('talltap-support::assets', [
             'assets' => $this->getStyles($packages),
         ])->render();
-    }
-
-    public function getTheme(?string $id): ?Theme
-    {
-        return $this->getThemes()[$id] ?? null;
-    }
-
-    /**
-     * @return array<string, Theme>
-     */
-    public function getThemes(): array
-    {
-        return $this->themes;
     }
 
     /**

@@ -16,9 +16,9 @@ class TypographyBubble extends Component implements BubbleMenu
         return '*';
     }
 
-    public function __construct(array $config = [])
+    public function __construct(?array $config = null)
     {
-        $this->config = config('talltap.config.extensions.typography', $this->config);
+        $this->config = $config ?? config('talltap.config.extensions.typography', []);
     }
 
     public function render(): string

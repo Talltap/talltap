@@ -13,12 +13,12 @@ class HeadingToolbar extends Component
     /**
      * @param  array  $config
      */
-    public function __construct(?array $configuration = null)
+    public function __construct(?array $config = null)
     {
-        if ($configuration) {
-            $this->config = $configuration;
+        if ($config) {
+            $this->config = $config;
         } else {
-            $this->config = config('talltap.config.extensions.heading', $this->config);
+            $this->config = $config ?? config('talltap.config.extensions.heading', []);
         }
     }
 

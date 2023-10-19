@@ -8,7 +8,7 @@ class YoutubeNode extends Node
 {
     public static $name = 'youtube';
 
-    public function addOptions()
+    public function addOptions(): array
     {
         return [
             'addPasteHandler' => true,

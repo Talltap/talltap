@@ -10,9 +10,9 @@ class AlignmentToolbar extends Component
         'alignments' => ['left', 'center', 'right', 'justify'],
     ];
 
-    public function __construct(array $config = [])
+    public function __construct(?array $config = null)
     {
-        $this->config = config('talltap.config.extensions.heading', $this->config);
+        $this->config = $config ?? config('talltap.config.extensions.heading', []);
     }
 
     public function render(): string

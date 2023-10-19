@@ -98,16 +98,7 @@ abstract class ViewComponent implements Htmlable
             return $this->view;
         }
 
-        if (filled($defaultView = $this->getDefaultView())) {
-            return $defaultView;
-        }
-
         throw new Exception('Class [' . static::class . '] extends [' . ViewComponent::class . '] but does not have a [$view] property defined.');
-    }
-
-    public function getDefaultView(): ?string
-    {
-        return $this->evaluate($this->defaultView);
     }
 
     public function toHtml(): string

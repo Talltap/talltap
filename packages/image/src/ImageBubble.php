@@ -14,9 +14,9 @@ class ImageBubble extends Component implements BubbleMenu
         return 'image';
     }
 
-    public function __construct(array $config = [])
+    public function __construct(?array $config = null)
     {
-        $this->config = config('talltap.config.extensions.image', $this->config);
+        $this->config = $config ?? config('talltap.config.extensions.image', []);
     }
 
     public function render(): \Illuminate\Contracts\View\View | \Illuminate\Contracts\View\Factory | \Illuminate\Foundation\Application | \Illuminate\Contracts\Support\Htmlable | string | \Closure | \Illuminate\Contracts\Foundation\Application

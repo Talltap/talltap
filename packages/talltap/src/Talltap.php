@@ -47,7 +47,7 @@ class Talltap extends EditorComponent
 
     public function extensions(array $extensions)
     {
-        $this->extensionsInternal = collect([...config('talltap.extensions', []), ...$extensions])->map(fn ($ext) => $ext instanceof string ? (new $ext) : $ext);
+        $this->extensionsInternal = collect([...config('talltap.extensions', []), ...$extensions])->map(fn ($ext) => is_string($ext)? (new $ext) : $ext);
 
         return $this;
     }

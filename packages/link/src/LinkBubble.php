@@ -14,9 +14,9 @@ class LinkBubble extends Component implements BubbleMenu
         return 'link';
     }
 
-    public function __construct(array $config = [])
+    public function __construct(?array $config = null)
     {
-        $this->config = config('talltap.config.extensions.link', $this->config);
+        $this->config = $config ?? config('talltap.config.extensions.link', []);
     }
 
     public function render(): \Illuminate\Contracts\View\View | \Illuminate\Contracts\View\Factory | \Illuminate\Foundation\Application | \Illuminate\Contracts\Support\Htmlable | string | \Closure | \Illuminate\Contracts\Foundation\Application

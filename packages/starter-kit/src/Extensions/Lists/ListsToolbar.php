@@ -10,9 +10,9 @@ class ListsToolbar extends Component
         'styles' => ['ordered', 'bullet'],
     ];
 
-    public function __construct(array $config = [])
+    public function __construct(?array $config = null)
     {
-        $this->config = config('talltap.config.extensions.list', $this->config);
+        $this->config = $config ?? config('talltap.config.extensions.list', []);
     }
 
     public function render(): string
