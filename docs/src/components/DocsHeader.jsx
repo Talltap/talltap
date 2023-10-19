@@ -7,7 +7,7 @@ import { navigation } from '@/lib/navigation'
 export function DocsHeader({ title }) {
   let pathname = usePathname()
   let section = navigation.find((section) =>
-    section.links.find((link) => link.href === pathname),
+    section.links.find((link) => link.href === pathname)
   )
 
   if (!title && !section) {

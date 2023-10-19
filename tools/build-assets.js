@@ -1,86 +1,90 @@
-import * as esbuild from 'esbuild'
+import * as esbuild from "esbuild";
 
-const isDev = process.argv.includes('--dev')
+const isDev = process.argv.includes("--dev");
 
-const corePackages = ['support', 'talltap', 'starter-kit', 'placeholder', 'link', 'youtube', 'image']
+const corePackages = [
+  "support",
+  "talltap",
+  "starter-kit",
+  "placeholder",
+  "link",
+  "youtube",
+  "image",
+];
 
 async function compile(options) {
-    const context = await esbuild.context(options)
+  const context = await esbuild.context(options);
 
-    if (isDev) {
-        await context.watch()
-    } else {
-        await context.rebuild()
-        await context.dispose()
-    }
+  if (isDev) {
+    await context.watch();
+  } else {
+    await context.rebuild();
+    await context.dispose();
+  }
 }
 
 const defaultOptions = {
-    define: {
-        'process.env.NODE_ENV': isDev ? `'development'` : `'production'`,
-    },
-    bundle: true,
-    mainFields: ['module', 'main'],
-    platform: 'neutral',
-    sourcemap: isDev ? 'inline' : false,
-    sourcesContent: isDev,
-    treeShaking: true,
-    target: ['es2020'],
-    minify: !isDev,
-    loader: {
-        '.jpg': 'dataurl',
-        '.png': 'dataurl',
-        '.svg': 'text',
-        '.gif': 'dataurl',
-        '.woff': 'file',
-        '.woff2': 'file',
-        '.data': 'base64',
-    },
-    plugins: [
-        {
-            name: 'watchPlugin',
-            setup: function (build) {
-                build.onStart(() => {
-                    console.log(
-                        `Build started at ${new Date(
-                            Date.now(),
-                        ).toLocaleTimeString()}: ${build.initialOptions.outfile
-                        }`,
-                    )
-                })
+  define: {
+    "process.env.NODE_ENV": isDev ? `'development'` : `'production'`,
+  },
+  bundle: true,
+  mainFields: ["module", "main"],
+  platform: "neutral",
+  sourcemap: isDev ? "inline" : false,
+  sourcesContent: isDev,
+  treeShaking: true,
+  target: ["es2020"],
+  minify: !isDev,
+  loader: {
+    ".jpg": "dataurl",
+    ".png": "dataurl",
+    ".svg": "text",
+    ".gif": "dataurl",
+    ".woff": "file",
+    ".woff2": "file",
+    ".data": "base64",
+  },
+  plugins: [
+    {
+      name: "watchPlugin",
+      setup: function (build) {
+        build.onStart(() => {
+          console.log(
+            `Build started at ${new Date(Date.now()).toLocaleTimeString()}: ${
+              build.initialOptions.outfile
+            }`
+          );
+        });
 
-                build.onEnd((result) => {
-                    if (result.errors.length > 0) {
-                        console.log(
-                            `Build failed at ${new Date(
-                                Date.now(),
-                            ).toLocaleTimeString()}: ${build.initialOptions.outfile
-                            }`,
-                            result.errors,
-                        )
-                    } else {
-                        console.log(
-                            `Build finished at ${new Date(
-                                Date.now(),
-                            ).toLocaleTimeString()}: ${build.initialOptions.outfile
-                            }`,
-                        )
-                    }
-                })
-            },
-        },
-    ],
-}
-
+        build.onEnd((result) => {
+          if (result.errors.length > 0) {
+            console.log(
+              `Build failed at ${new Date(Date.now()).toLocaleTimeString()}: ${
+                build.initialOptions.outfile
+              }`,
+              result.errors
+            );
+          } else {
+            console.log(
+              `Build finished at ${new Date(
+                Date.now()
+              ).toLocaleTimeString()}: ${build.initialOptions.outfile}`
+            );
+          }
+        });
+      },
+    },
+  ],
+};
 
 corePackages.forEach((packageName) => {
-    compile({
-        ...defaultOptions,
-        platform: 'browser',
-        entryPoints: [`./packages/${packageName}/resources/js/index.js`],
-        outfile: `./packages/${packageName}/dist/index.js`,
-    })
-})
+  compile({
+    ...defaultOptions,
+    platform: "browser",
+    entryPoints: [`./packages/${packageName}/resources/js/index.js`],
+    outfile: `./packages/${packageName}/dist/index.js`,
+  });
+});
 
 // const formComponents = [
 //     'color-picker',

@@ -20,7 +20,7 @@ const nodes = {
           frontmatter: yaml.load(node.attributes.frontmatter),
           nodes: node.children,
         },
-        node.transformChildren(config),
+        node.transformChildren(config)
       )
     },
   },
@@ -36,7 +36,7 @@ const nodes = {
       return new Tag(
         `h${node.attributes.level}`,
         { ...attributes, id },
-        children,
+        children
       )
     },
   },

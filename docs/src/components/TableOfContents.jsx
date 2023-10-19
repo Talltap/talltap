@@ -75,7 +75,7 @@ export function TableOfContents({ tableOfContents }) {
                       className={clsx(
                         isActive(section)
                           ? 'text-sky-500'
-                          : 'font-normal text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300',
+                          : 'font-normal text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300'
                       )}
                     >
                       {section.title}
