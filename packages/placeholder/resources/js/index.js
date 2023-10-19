@@ -1,7 +1,7 @@
 import Placeholder from "@tiptap/extension-placeholder";
 import {registerExtension} from "../../../support/resources/js/utils.js";
 
-registerExtension('placeholder', (config) => {
+registerExtension('placeholder', (instance, config) => {
     return [
         Placeholder.configure({
             placeholder: ({ node }) => {

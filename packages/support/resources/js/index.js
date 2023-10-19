@@ -2,31 +2,46 @@ import {bubbleMenuRef} from "./utils.js";
 
 (function() {
     this.talltapRegistry = {
-        extensions: [],
-        config: undefined,
-        init(config) {
-            this.config = config;
-        },
-        register(extension) {
-            if (!this.config) {
-                throw new Error("TallTap registry hasn't been initialized yet");
+        instances: [],
+        globalExtensions: [],
+        init(instanceName, config) {
+            const instance = {
+                name: instanceName,
+                config,
+                extensions: []
             }
-            this.extensions.push(extension);
-        },
-        getExtensions(){
-            if (!this.config) {
-                throw new Error("TallTap registry hasn't been initialized yet");
+
+            for (const {id, callback} of this.globalExtensions) {
+                const bootedExtension = callback(instance, config[id] ?? null);
+
+                if (Array.isArray(bootedExtension)) {
+                    for (const extElement of bootedExtension) {
+                        instance.extensions.push(extElement);
+                    }
+                } else {
+                    instance.extensions.push(ext);
+                }
             }
-            return this.extensions;
+
+            this.instances.push(instance)
         },
-        getConfig(extensionId = null){
-            if (!this.config) {
-                throw new Error("TallTap registry hasn't been initialized yet");
+        register(id, callback) {
+            this.globalExtensions.push({
+                id,
+                callback
+            })
+        },
+        getInstance(instanceName){
+            if (this.instances.length === 0) {
+                throw new Error(`TallTap instance ${instanceName} hasn't been initialized yet`);
             }
+            return this.instances.find(instance => instance.name === instanceName);
+        },
+        getConfig(instance, extensionId = null) {
             if (extensionId == null) {
-                return this.config;
+                return instance.config;
             }
-            return this.config[extensionId] ?? null;
+            return instance.config[extensionId] ?? null;
         }
     }
 }());

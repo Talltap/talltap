@@ -2,22 +2,9 @@ import { Node, nodeInputRule, mergeAttributes } from "@tiptap/core";
 
 import {placeholderPlugin, uploadImagePlugin} from "./prosemirror_plugin";
 
-/**
- * Tiptap Extension to upload images
- * @see  https://gist.github.com/slava-vishnyakov/16076dff1a77ddaca93c4bccd4ec4521#gistcomment-3744392
- * @since 7th July 2021
- *
- * Matches following attributes in Markdown-typed image: [, alt, src, title]
- *
- * Example:
- * ![Lorem](image.jpg) -> [, "Lorem", "image.jpg"]
- * ![](image.jpg "Ipsum") -> [, "", "image.jpg", "Ipsum"]
- * ![Lorem](image.jpg "Ipsum") -> [, "Lorem", "image.jpg", "Ipsum"]
- */
-
 const IMAGE_INPUT_REGEX = /!\[(.+|:?)\]\((\S+)(?:(?:\s+)["'](\S+)["'])?\)/;
 
-export default Node.create({
+export default (uploadFn) => Node.create({
   name: "image",
 
   addOptions() {
@@ -104,35 +91,6 @@ export default Node.create({
     ];
   },
   addProseMirrorPlugins() {
-    return [uploadImagePlugin(this.uploadFn), placeholderPlugin];
-  },
-
-  async uploadFn(file) {
-    const filenamePromise = new Promise((resolve) => {
-      console.log('uploading');
-      this.$wire.upload(
-        "images",
-        file,
-        (uploadedFilename) => {
-          // Success callback.
-          console.log(uploadedFilename);
-          this.isUploading = false;
-          resolve(uploadedFilename);
-        },
-        () => {
-          this.isUploading = false;
-          // Error callback.
-        },
-        (event) => {
-          this.isUploading = true;
-          // Progress callback.
-          // event.detail.progress contains a number between 1 and 100 as the upload progresses.
-        },
-      );
-    });
-    return {
-      src: await this.getTempUrl(await filenamePromise),
-      ref: await filenamePromise,
-    };
+    return [uploadImagePlugin(uploadFn), placeholderPlugin];
   }
 });

@@ -6,14 +6,7 @@ export function registerExtension(id, callback){
         throw new Error("callback can't be undefined when registering an extension");
     }
     document.addEventListener("alpine:init", () => {
-        const ext = callback(window.talltapRegistry.getConfig(id));
-        if (Array.isArray(ext)) {
-            for (const extElement of ext) {
-                window.talltapRegistry.register(extElement);
-            }
-        } else {
-            window.talltapRegistry.register(ext);
-        }
+        window.talltapRegistry.register(id, callback);
     });
 }
 

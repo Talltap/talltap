@@ -2,14 +2,20 @@
 
 namespace Talltap\Talltap\Livewire;
 
+use Illuminate\Support\Str;
 use Livewire\Attributes\Modelable;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Talltap\Support\Facades\TalltapExtension;
 
 class Editor extends Component
 {
+    use WithFileUploads;
+
     #[Modelable]
     public ?string $value = '';
+
+    public $files = [];
 
     public ?array $configuration = [];
 
@@ -19,16 +25,25 @@ class Editor extends Component
 
     protected ?array $bubbleMenuComponents = null;
 
-    public string $alpineStoreName;
-
-    public function getConfiguration(string $id): ?array
+    public function getConfiguration(?string $id = null): ?array
     {
+        if ($id == null) {
+            return $this->configuration;
+        }
+
         return $this->configuration[$id] ?? null;
     }
 
     public function mount(): void
     {
-        $this->alpineStoreName = 'bla'; // Ulid::generate();
+        $this->setId('talltap_' . Str::ulid());
+    }
+
+    public function getTemporaryUrl($filename): string
+    {
+        $image = collect($this->files)->first(fn ($file) => $file->getFilename() === $filename);
+
+        return $image->temporaryUrl();
     }
 
     public function boot(): void

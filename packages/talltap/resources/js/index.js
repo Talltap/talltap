@@ -17,8 +17,7 @@ const config = {
 };
 
 document.addEventListener("alpine:init", () => {
-    Alpine.data("talltap", (content, bubbleMenuActiveTrigger) => {
-        const ref = "tallEditor";
+    Alpine.data("talltap", (content, bubbleMenuActiveTrigger, ref, configuration) => {
         if (!window.talltap) {
             window.talltap = {};
         }
@@ -36,11 +35,13 @@ document.addEventListener("alpine:init", () => {
                     return;
                 }
 
+                window.talltapRegistry.init(ref, configuration);
+
                 editor = new Editor({
                     element: this.$refs.tiptap,
                     editorProps: config.editorProps,
                     extensions: [
-                        config.document, ...window.talltapRegistry.getExtensions(),
+                        config.document, ...window.talltapRegistry.getInstance(ref).extensions,
                         StarterKit.configure({
                             codeBlock: false,
                             document: false,
@@ -91,11 +92,11 @@ document.addEventListener("alpine:init", () => {
                     this.output = Alpine.debounce(
                         () => {
                             this.$wire.set("value", this.content);
+                            console.log("updated", this.content);
                             this.$dispatch('content-updated');
                         },
                         500,
                     );
-                    return;
                 }
                 this.output();
             },

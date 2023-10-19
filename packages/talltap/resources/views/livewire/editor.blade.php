@@ -1,5 +1,5 @@
 <div wire:ignore>
-    <div x-data="talltap($wire.value, $wire.bubbleMenuActiveTrigger)">
+    <div x-data="talltap($wire.value, $wire.bubbleMenuActiveTrigger, '{{$this->getId()}}', {{ Illuminate\Support\Js::from($this->getConfiguration()) }})">
         <div class="mb-4">
             @foreach($this->toolbarComponents as $comp)
                 @if($comp->isLivewire())
@@ -9,7 +9,7 @@
                 @endif
             @endforeach
         </div>
-        <div x-cloak id="bubbleMenu" class="bg-black p-2 rounded-md shadow-sm flex flex-row" data-editor="tallEditor">
+        <div x-cloak id="bubbleMenu" class="bg-black p-2 rounded-md shadow-sm flex flex-row" data-editor="{{$this->getId()}}">
             @foreach($this->bubbleMenuComponents as $comp)
                 @if($comp->isLivewire())
                     <livewire:dynamic-component :is="$comp->getComponentSlug()" :configuration="$this->getConfiguration($comp->getId())" />

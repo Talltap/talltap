@@ -1,6 +1,7 @@
 import { Plugin, PluginKey } from "@tiptap/pm/state";
 import { Decoration, DecorationSet } from "@tiptap/pm/view";
 
+
 export const placeholderPlugin = new Plugin({
     key: new PluginKey("talltap-image-placeholder"),
     state: {
@@ -153,6 +154,7 @@ export const uploadImagePlugin = (upload) => {
                             );
                         } else {
                             reader.onload = (readerEvent) => {
+                                console.log("i couldn't get an upload function");
                                 const node = schema.nodes.image.create({
                                     src: readerEvent.target?.result,
                                 });
